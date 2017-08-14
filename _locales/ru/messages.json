@@ -1,0 +1,15 @@
+{
+	"extensionName": {
+		"message": "Private Tab WE",
+		"description": "Name of the extension"
+	},
+	"extensionDescription": {
+		"message": "Добавляет приватные вкладки",
+		"description": "Description of the add-on"
+	},
+
+	"openInNewPrivateTab": {
+		"message": "Открыть ссылку в новой приватной вкладке",
+		"description": "Title of context menu item to open link in new private tab"
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"manifest_version": 2,
+	"version": "0.1a1",
+	"name": "__MSG_extensionName__",
+	"description": "__MSG_extensionDescription__",
+	"default_locale": "en",
+	"applications": {
+		"gecko": {
+			"id": "privateTabWE@infocatcher"
+		}
+	},
+
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"permissions": [
+	    "contextMenus"
+	],
+
+	"icons": {
+		"16": "privacy-16.png",
+		"48": "icon.png"
+	}
+}
