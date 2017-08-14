@@ -11,5 +11,9 @@
 	"openInNewPrivateTab": {
 		"message": "Open Link in New Private Tab",
 		"description": "Title of context menu item to open link in new private tab"
+	},
+	"openNewPrivateTab": {
+		"message": "New Private Tab",
+		"description": "Tooltip for toolbar button"
 	}
 }

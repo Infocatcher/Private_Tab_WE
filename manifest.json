@@ -16,6 +16,15 @@
 	"permissions": [
 	    "contextMenus"
 	],
+	"browser_action": {
+		"browser_style": true,
+		"default_title": "__MSG_openNewPrivateTab__",
+		"default_icon": {
+			"16": "privacy-16.png",
+			"24": "privacy-24.png",
+			"32": "privacy-32.png"
+		}
+	},
 
 	"icons": {
 		"16": "privacy-16.png",

@@ -15,7 +15,11 @@ browser.contextMenus.create({
 }, onCreated);
 
 browser.contextMenus.onClicked.addListener(function(info, tab) {
-	_log("onClicked: " + info.menuItemId);
+	_log("contextMenus.onClicked: " + info.menuItemId);
+});
+
+browser.browserAction.onClicked.addListener(function() {
+	_log("browserAction.onClicked");
 });
 
 function ts() {
