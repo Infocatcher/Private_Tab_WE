@@ -26,6 +26,20 @@
 			"32": "privacy-32.png"
 		}
 	},
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"default": "Alt+Shift+P"
+			},
+			"description": "Open new private tab"
+		},
+		"toggleTabPrivate": {
+			"suggested_key": {
+				"default": "Alt+Shift+T"
+			},
+			"description": "Toggle private state of current tab"
+		}
+	},
 
 	"icons": {
 		"16": "privacy-16.png",

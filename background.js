@@ -21,6 +21,9 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 browser.browserAction.onClicked.addListener(function() {
 	_log("browserAction.onClicked");
 });
+browser.commands.onCommand.addListener(function(command) {
+	_log("commands.onCommand: " + command);
+});
 
 function ts() {
 	var d = new Date();
