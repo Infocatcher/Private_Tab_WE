@@ -16,7 +16,8 @@
 	},
 	"permissions": [
 		"contextualIdentities",
-		"contextMenus"
+		"contextMenus",
+		"notifications"
 	],
 	"browser_action": {
 		"browser_style": true,

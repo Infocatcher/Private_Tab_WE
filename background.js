@@ -34,6 +34,18 @@ browser.contextualIdentities.create({
 	function onCreated(context) {
 		cookieStoreId = context.cookieStoreId;
 		_log("New identity's ID: " + cookieStoreId);
+		if(!cookieStoreId) {
+			// https://bugzilla.mozilla.org/show_bug.cgi?id=1354602
+			// Expose enabling containers via web extensions
+			var msg = "Please set privacy.userContext.enabled = true in about:config";
+			browser.notifications.create({
+				"type": "basic",
+				"iconUrl": browser.extension.getURL("icon.png"),
+				"title": browser.i18n.getMessage("extensionName"),
+				"message": msg
+			});
+			_err(msg);
+		}
 	},
 	function onError(e) {
 		_err(e);
