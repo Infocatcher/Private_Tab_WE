@@ -15,7 +15,8 @@
 		"scripts": ["background.js"]
 	},
 	"permissions": [
-	    "contextMenus"
+		"contextualIdentities",
+		"contextMenus"
 	],
 	"browser_action": {
 		"browser_style": true,

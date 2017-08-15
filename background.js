@@ -25,6 +25,21 @@ browser.commands.onCommand.addListener(function(command) {
 	_log("commands.onCommand: " + command);
 });
 
+var cookieStoreId;
+browser.contextualIdentities.create({
+	name: browser.i18n.getMessage("extensionName"),
+	color: "purple",
+	icon: "fingerprint"
+}).then(
+	function onCreated(context) {
+		cookieStoreId = context.cookieStoreId;
+		_log("New identity's ID: " + cookieStoreId);
+	},
+	function onError(e) {
+		_err(e);
+	}
+);
+
 function ts() {
 	var d = new Date();
 	var ms = d.getMilliseconds();
