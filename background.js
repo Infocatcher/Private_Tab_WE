@@ -52,6 +52,14 @@ browser.contextualIdentities.create({
 	}
 );
 
+// Not implemented :(
+// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onSuspend
+// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onSuspendCanceled
+//browser.runtime.onSuspend.addListener(function destroy() {
+//});
+//browser.runtime.onSuspendCanceled.addListener(function reInit() {
+//});
+
 function ts() {
 	var d = new Date();
 	var ms = d.getMilliseconds();
