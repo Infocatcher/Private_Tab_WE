@@ -26,31 +26,51 @@ browser.commands.onCommand.addListener(function(command) {
 });
 
 var cookieStoreId;
-browser.contextualIdentities.create({
-	name: browser.i18n.getMessage("extensionName"),
-	color: "purple",
-	icon: "fingerprint"
-}).then(
-	function onCreated(context) {
-		cookieStoreId = context.cookieStoreId;
-		_log("New identity's ID: " + cookieStoreId);
-		if(!cookieStoreId) {
-			// https://bugzilla.mozilla.org/show_bug.cgi?id=1354602
-			// Expose enabling containers via web extensions
-			var msg = "Please set privacy.userContext.enabled = true in about:config";
-			browser.notifications.create({
-				"type": "basic",
-				"iconUrl": browser.extension.getURL("icon.png"),
-				"title": browser.i18n.getMessage("extensionName"),
-				"message": msg
-			});
-			_err(msg);
-		}
-	},
-	function onError(e) {
-		_err(e);
+browser.storage.local.get("cookieStoreId").then(function(o) {
+	var sId = o.cookieStoreId || null;
+	if(sId) { //~ todo: ensure availability
+		_log("Will use saved cookieStoreId from browser.storage.local: " + sId);
+		return cookieStoreId = sId;
 	}
-);
+	return createContainer(function(sId) {
+		if(!sId)
+			return;
+		browser.storage.local.set({
+			cookieStoreId: sId
+		});
+		cookieStoreId = sId;
+	});
+}, _err);
+
+function createContainer(callback) {
+	browser.contextualIdentities.create({
+		name: browser.i18n.getMessage("extensionName"),
+		color: "purple",
+		icon: "fingerprint"
+	}).then(
+		function onCreated(context) {
+			var sId = context.cookieStoreId;
+			_log("New identity's ID: " + sId);
+			if(!sId) {
+				// https://bugzilla.mozilla.org/show_bug.cgi?id=1354602
+				// Expose enabling containers via web extensions
+				var msg = "Please set privacy.userContext.enabled = true in about:config";
+				browser.notifications.create({
+					"type": "basic",
+					"iconUrl": browser.extension.getURL("icon.png"),
+					"title": browser.i18n.getMessage("extensionName"),
+					"message": msg
+				});
+				_err(msg);
+			}
+			callback(sId);
+		},
+		function onError(e) {
+			_err(e);
+			//callback();
+		}
+	);
+}
 
 // Not implemented :(
 // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onSuspend

@@ -17,6 +17,7 @@
 	"permissions": [
 		"contextualIdentities",
 		"contextMenus",
+		"storage",
 		"notifications"
 	],
 	"browser_action": {
