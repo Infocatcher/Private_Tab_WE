@@ -20,7 +20,9 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 		url: info.linkUrl,
 		cookieStoreId: cookieStoreId,
 		//openerTabId: tab.id, // Not supported and will cause error
-		active: true //~ todo: add option
+		//~ todo: add options
+		active: true,
+		index: tab.index + 1
 	});
 });
 
