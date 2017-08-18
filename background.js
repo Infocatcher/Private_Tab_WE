@@ -27,21 +27,38 @@ browser.commands.onCommand.addListener(function(command) {
 
 var cookieStoreId;
 browser.storage.local.get("cookieStoreId").then(function(o) {
-	var sId = o.cookieStoreId || null;
-	if(sId) { //~ todo: ensure availability
-		_log("Will use saved cookieStoreId from browser.storage.local: " + sId);
-		return cookieStoreId = sId;
-	}
-	return createContainer(function(sId) {
+	function done(sId) {
 		if(!sId)
+			_err("Unable to create container");
+	}
+	var sId = o.cookieStoreId || null;
+	if(!sId) {
+		createAndStoreContainer(done);
+		return;
+	}
+	// Validate container
+	browser.contextualIdentities.get(sId).then(function onSuccess(context) {
+		if(context) {
+			cookieStoreId = sId;
+			_log("Will use saved cookieStoreId from browser.storage.local: " + sId);
+			done(sId);
 			return;
+		}
+		_log("Saved cookieStoreId was removes, will create new one");
+		createAndStoreContainer(done);
+	}, _err);
+}, _err);
+function createAndStoreContainer(callback) {
+	createContainer(function(sId) {
+		if(!sId)
+			return callback();
+		cookieStoreId = sId;
 		browser.storage.local.set({
 			cookieStoreId: sId
 		});
-		cookieStoreId = sId;
+		return callback(sId);
 	});
-}, _err);
-
+}
 function createContainer(callback) {
 	browser.contextualIdentities.create({
 		name: browser.i18n.getMessage("extensionName"),
@@ -50,7 +67,7 @@ function createContainer(callback) {
 	}).then(
 		function onCreated(context) {
 			var sId = context.cookieStoreId;
-			_log("New identity's ID: " + sId);
+			_log("Container id: " + sId);
 			if(!sId) {
 				// https://bugzilla.mozilla.org/show_bug.cgi?id=1354602
 				// Expose enabling containers via web extensions
@@ -67,7 +84,7 @@ function createContainer(callback) {
 		},
 		function onError(e) {
 			_err(e);
-			//callback();
+			callback();
 		}
 	);
 }
