@@ -16,6 +16,7 @@
 	},
 	"permissions": [
 		"contextualIdentities",
+		"cookies",
 		"contextMenus",
 		"storage",
 		"notifications"

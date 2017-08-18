@@ -16,6 +16,12 @@ browser.contextMenus.create({
 
 browser.contextMenus.onClicked.addListener(function(info, tab) {
 	_log("contextMenus.onClicked: " + info.menuItemId);
+	browser.tabs.create({
+		url: info.linkUrl,
+		cookieStoreId: cookieStoreId,
+		//openerTabId: tab.id, // Not supported and will cause error
+		active: true //~ todo: add option
+	});
 });
 
 browser.browserAction.onClicked.addListener(function() {
