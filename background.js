@@ -28,6 +28,10 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 
 browser.browserAction.onClicked.addListener(function() {
 	_log("browserAction.onClicked");
+	browser.tabs.create({
+		cookieStoreId: cookieStoreId,
+		active: true
+	});
 });
 browser.commands.onCommand.addListener(function(command) {
 	_log("commands.onCommand: " + command);
