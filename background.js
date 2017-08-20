@@ -9,21 +9,33 @@ function onCreated() {
 }
 
 browser.contextMenus.create({
-	id: "pt-openInTab",
+	id: "openInTab",
 	title: browser.i18n.getMessage("openInNewPrivateTab"),
 	contexts: ["link"]
 }, onCreated);
+browser.contextMenus.create({
+	id: "toggleTabPrivate",
+	type: "checkbox",
+	title: browser.i18n.getMessage("privateTab"),
+	contexts: ["tab"]
+}, onCreated);
 
 browser.contextMenus.onClicked.addListener(function(info, tab) {
-	_log("contextMenus.onClicked: " + info.menuItemId);
-	browser.tabs.create({
-		url: info.linkUrl,
-		cookieStoreId: cookieStoreId,
-		//openerTabId: tab.id, // Not supported and will cause error
-		//~ todo: add options
-		active: true,
-		index: tab.index + 1
-	});
+	var miId = info.menuItemId;
+	_log("contextMenus.onClicked: " + miId);
+	if(miId == "openInTab") {
+		browser.tabs.create({
+			url: info.linkUrl,
+			cookieStoreId: cookieStoreId,
+			//openerTabId: tab.id, // Not supported and will cause error
+			//~ todo: add options
+			active: true,
+			index: tab.index + 1
+		});
+	}
+	else if(miId == "toggleTabPrivate") {
+		//~ todo
+	}
 });
 
 browser.browserAction.onClicked.addListener(function() {

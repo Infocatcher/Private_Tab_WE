@@ -15,5 +15,9 @@
 	"openNewPrivateTab": {
 		"message": "Новая приватная вкладка",
 		"description": "Tooltip for toolbar button"
+	},
+	"privateTab": {
+		"message": "Приватная вкладка",
+		"description": "Item in tab context menu"
 	}
 }
