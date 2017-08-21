@@ -16,6 +16,7 @@ browser.contextMenus.create({
 browser.contextMenus.create({
 	id: "toggleTabPrivate",
 	type: "checkbox",
+	checked: false,
 	title: browser.i18n.getMessage("privateTab"),
 	contexts: ["tab"]
 }, onCreated);
@@ -48,6 +49,23 @@ browser.browserAction.onClicked.addListener(function() {
 browser.commands.onCommand.addListener(function(command) {
 	_log("commands.onCommand: " + command);
 });
+
+browser.tabs.onActivated.addListener(function(activeInfo) {
+	_log("tabs.onActivated tabId: " + activeInfo.tabId);
+	isTabPrivate(activeInfo.tabId, function(isPrivate) {
+		_log("isPrivate: " + isPrivate);
+		browser.contextMenus.update("toggleTabPrivate", {
+			checked: isPrivate
+		});
+	});
+});
+function isTabPrivate(tabId, callback) {
+	browser.tabs.get(tabId).then(function(tabInfo) {
+		_log("tabInfo.cookieStoreId " + tabInfo.cookieStoreId);
+		var isPrivate = tabInfo.cookieStoreId == cookieStoreId;
+		callback(isPrivate);
+	}, _err);
+}
 
 var cookieStoreId;
 browser.storage.local.get("cookieStoreId").then(function(o) {
