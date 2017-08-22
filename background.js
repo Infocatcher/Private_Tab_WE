@@ -60,12 +60,25 @@ browser.tabs.onActivated.addListener(function(activeInfo) {
 	});
 });
 function isTabPrivate(tabId, callback) {
-	browser.tabs.get(tabId).then(function(tabInfo) {
+	var promise = tabId === null
+		//? browser.tabs.getCurrent()
+		? browser.tabs.query({ currentWindow: true, active: true })
+		: browser.tabs.get(tabId);
+	promise.then(function(tabsInfo) {
+		var tabInfo = Array.isArray(tabsInfo) ? tabsInfo[0] : tabsInfo;
 		_log("tabInfo.cookieStoreId " + tabInfo.cookieStoreId);
 		var isPrivate = tabInfo.cookieStoreId == cookieStoreId;
 		callback(isPrivate);
 	}, _err);
 }
+setTimeout(function() {
+	isTabPrivate(null, function(isPrivate) {
+		_log("isPrivate: " + isPrivate);
+		browser.contextMenus.update("toggleTabPrivate", {
+			checked: isPrivate
+		});
+	});
+}, 100);
 
 var cookieStoreId;
 browser.storage.local.get("cookieStoreId").then(function(o) {
