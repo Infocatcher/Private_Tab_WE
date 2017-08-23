@@ -1,1 +1,1 @@
-WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Private Tab</a> extension for Firefox/SeaMonkey (see <a hreg="https://github.com/Infocatcher/Private_Tab/issues/254">Private_Tab#254</a>).
+WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Private Tab</a> extension for Firefox/SeaMonkey (see <a href="https://github.com/Infocatcher/Private_Tab/issues/254">Private_Tab#254</a>).
