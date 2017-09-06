@@ -25,14 +25,24 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 	var miId = info.menuItemId;
 	_log("contextMenus.onClicked: " + miId);
 	if(miId == "openInTab") {
-		browser.tabs.create({
+		var opts = {
 			url: info.linkUrl,
 			cookieStoreId: cookieStoreId,
-			//openerTabId: tab.id, // Not supported and will cause error
+			openerTabId: tab.id,
 			//~ todo: add options
 			active: true,
 			index: tab.index + 1
-		});
+		};
+		try {
+			browser.tabs.create(opts);
+		}
+		catch(e) {
+			// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
+			if((e + "").indexOf('"openerTabId" is unsupported') == -1)
+				throw e;
+			delete opts.openerTabId;
+			browser.tabs.create(opts);
+		}
 	}
 	else if(miId == "toggleTabPrivate") {
 		//~ todo
