@@ -48,6 +48,13 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1370499">Bug 1370499</a></td>
 	</tr>
 	<tr>
+		<td>Special private:… protocol to open URIs in private tabs</td>
+		<td>Additional functionality</td>
+		<td>No API</td>
+		<td>Minor</td>
+		<td><a href="https://bug623317.bugzilla.mozilla.org/show_bug.cgi?id=1271553">Bug 1271553</a></td>
+	</tr>
+	<tr>
 		<td>Cleanup on disabling/uninstalling: <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onSuspend">browser.runtime.onSuspend()</a>, <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onSuspendCanceled">browser.runtime.onSuspendCanceled()</a></td>
 		<td>Internals + UX</td>
 		<td>Not implemented Chrome API</td>
