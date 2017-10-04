@@ -27,11 +27,11 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1353726">Bug 1353726</a></td>
 	</tr>
 	<tr>
-		<td>Ability to programmatically enable containers</td>
-		<td>Core functionality</td>
-		<td>No API</td>
-		<td>Major</td>
-		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1354602">Bug 1354602</a></td>
+		<td><del>Ability to programmatically enable containers</del></td>
+		<td><del>Core functionality</del></td>
+		<td><del>No API</del><br><em>Fixed in Firefox 57</em></td>
+		<td><del>Major</del></td>
+		<td><del><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1354602">Bug 1354602</a></del></td>
 	</tr>
 	<tr>
 		<td>Browser behavior for “open link in new tab” (<em>browser.tabs.insertRelatedAfterCurrent</em> & Co)</td>
