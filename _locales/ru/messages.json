@@ -8,6 +8,10 @@
 		"description": "Description of the add-on"
 	},
 
+	"containerName": {
+		"message": "Приватная вкладка",
+		"description": "Name of identity container"
+	},
 	"openInNewPrivateTab": {
 		"message": "Открыть ссылку в новой приватной вкладке",
 		"description": "Title of context menu item to open link in new private tab"

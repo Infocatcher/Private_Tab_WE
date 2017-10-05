@@ -133,7 +133,7 @@ function createAndStoreContainer(callback) {
 }
 function createContainer(callback) {
 	browser.contextualIdentities.create({
-		name: browser.i18n.getMessage("extensionName"),
+		name: browser.i18n.getMessage("containerName"),
 		color: "purple",
 		icon: "fingerprint"
 	}).then(function(context) {
