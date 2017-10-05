@@ -17,7 +17,7 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 		<td>Core functionality</td>
 		<td>No API</td>
 		<td><strong>Block</strong></td>
-		<td></td>
+		<td><a href="https://github.com/mozilla/multi-account-containers/issues/47">#47</a></td>
 	</tr>
 	<tr>
 		<td>Ability to manually clear container data (as a temporary replacement for really private tabs)</td>
