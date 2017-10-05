@@ -10,6 +10,7 @@ browser.storage.local.get().then(function(o) {
 			prefs[key] = changes[key].newValue;
 	});
 	Object.assign(prefs, o);
+	privateContainerId = prefs.privateContainerId || null;
 
 	for(var key in o)
 		return; // Prefs already saved
@@ -122,6 +123,7 @@ browser.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 		!count && browser.contextualIdentities.remove(privateContainerId).then(function() {
 			_log("Removed last private tab => remove container");
 			privateContainerId = null;
+			browser.storage.local.remove("privateContainerId");
 		});
 	}, tabId);
 });
@@ -143,8 +145,12 @@ function validateContainer(sId, callback) {
 }
 function createAndStoreContainer(callback) {
 	createContainer(function(sId) {
-		if(sId)
+		if(sId) {
 			privateContainerId = sId;
+			browser.storage.local.set({
+				privateContainerId: sId
+			});
+		}
 		callback(sId);
 	});
 }
