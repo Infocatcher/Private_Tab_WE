@@ -1,25 +1,17 @@
 const LOG_PREFIX = "[Private Tab WE] ";
 
-function onCreated() {
-	var err = browser.runtime.lastError;
-	if(err)
-		_err("Error: " + err);
-	else
-		_log("Item created successfully");
-}
-
 browser.contextMenus.create({
 	id: "openInTab",
 	title: browser.i18n.getMessage("openInNewPrivateTab"),
 	contexts: ["link"]
-}, onCreated);
+});
 browser.contextMenus.create({
 	id: "toggleTabPrivate",
 	type: "checkbox",
 	checked: false,
 	title: browser.i18n.getMessage("privateTab"),
 	contexts: ["tab"]
-}, onCreated);
+});
 
 browser.contextMenus.onClicked.addListener(function(info, tab) {
 	var miId = info.menuItemId;
