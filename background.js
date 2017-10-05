@@ -115,8 +115,6 @@ browser.storage.local.get("cookieStoreId").then(function(o) {
 }, _err);
 function createAndStoreContainer(callback) {
 	createContainer(function(sId) {
-		if(!sId)
-			return callback();
 		privateContainerId = sId;
 		browser.storage.local.set({
 			cookieStoreId: sId
@@ -129,29 +127,23 @@ function createContainer(callback) {
 		name: browser.i18n.getMessage("extensionName"),
 		color: "purple",
 		icon: "fingerprint"
-	}).then(
-		function onCreated(context) {
-			var sId = context.cookieStoreId;
-			_log("Container id: " + sId);
-			if(!sId) {
-				// https://bugzilla.mozilla.org/show_bug.cgi?id=1354602
-				// Expose enabling containers via web extensions
-				var msg = "Please set privacy.userContext.enabled = true in about:config";
-				browser.notifications.create({
-					"type": "basic",
-					"iconUrl": browser.extension.getURL("icon.png"),
-					"title": browser.i18n.getMessage("extensionName"),
-					"message": msg
-				});
-				_err(msg);
-			}
-			callback(sId);
-		},
-		function onError(e) {
-			_err(e);
-			callback();
+	}).then(function(context) {
+		var sId = context.cookieStoreId;
+		if(sId) {
+			_log("Created container: " + sId);
+			return callback(sId);
 		}
-	);
+		// https://bugzilla.mozilla.org/show_bug.cgi?id=1354602
+		// Expose enabling containers via web extensions, fixed in Firefox 57+
+		var msg = "Unable to create container! Please set privacy.userContext.enabled = true in about:config";
+		_err(msg);
+		browser.notifications.create({
+			"type": "basic",
+			"iconUrl": browser.extension.getURL("icon.png"),
+			"title": browser.i18n.getMessage("extensionName"),
+			"message": msg
+		});
+	}, _err);
 }
 
 // Not implemented :(
