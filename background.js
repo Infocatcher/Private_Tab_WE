@@ -25,24 +25,26 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 	var miId = info.menuItemId;
 	_log("contextMenus.onClicked: " + miId);
 	if(miId == "openInTab") {
-		var opts = {
-			url: info.linkUrl,
-			cookieStoreId: privateContainerId,
-			openerTabId: tab.id,
-			//~ todo: add options
-			active: true,
-			index: tab.index + 1
-		};
-		try {
-			browser.tabs.create(opts);
-		}
-		catch(e) {
-			// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
-			if((e + "").indexOf('"openerTabId" is unsupported') == -1)
-				throw e;
-			delete opts.openerTabId;
-			browser.tabs.create(opts);
-		}
+		getContainer(function(sId) {
+			var opts = {
+				url: info.linkUrl,
+				cookieStoreId: sId,
+				openerTabId: tab.id,
+				//~ todo: add options
+				active: true,
+				index: tab.index + 1
+			};
+			try {
+				browser.tabs.create(opts);
+			}
+			catch(e) {
+				// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
+				if((e + "").indexOf('"openerTabId" is unsupported') == -1)
+					throw e;
+				delete opts.openerTabId;
+				browser.tabs.create(opts);
+			}
+		});
 	}
 	else if(miId == "toggleTabPrivate") {
 		//~ todo
@@ -51,9 +53,11 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 
 browser.browserAction.onClicked.addListener(function() {
 	_log("browserAction.onClicked");
-	browser.tabs.create({
-		cookieStoreId: privateContainerId,
-		active: true
+	getContainer(function(sId) {
+		browser.tabs.create({
+			cookieStoreId: sId,
+			active: true
+		});
 	});
 });
 browser.commands.onCommand.addListener(function(command) {
@@ -70,6 +74,8 @@ browser.tabs.onActivated.addListener(function(activeInfo) {
 	});
 });
 function isTabPrivate(tabId, callback) {
+	if(!privateContainerId)
+		return callback(false);
 	var promise = tabId === null
 		//? browser.tabs.getCurrent()
 		? browser.tabs.query({ currentWindow: true, active: true })
@@ -81,6 +87,16 @@ function isTabPrivate(tabId, callback) {
 		callback(isPrivate);
 	}, _err);
 }
+function getPrivateTabsCount(callback, excludeTabId) {
+	if(!privateContainerId)
+		return callback(0);
+	return browser.tabs.query({ cookieStoreId: privateContainerId }).then(function(tabs) {
+		var count = 0;
+		for(var tab of tabs)
+			tab.id != excludeTabId && ++count;
+		callback(count);
+	}, _err);
+}
 setTimeout(function() {
 	isTabPrivate(null, function(isPrivate) {
 		_log("isPrivate: " + isPrivate);
@@ -90,36 +106,37 @@ setTimeout(function() {
 	});
 }, 100);
 
+browser.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+	// Note: browser.tabs.get(tabId) doesn't work: Error: Invalid tab ID: ###
+	privateContainerId && getPrivateTabsCount(function(count) {
+		_log("Tab removed, opened private tabs: " + count);
+		!count && browser.contextualIdentities.remove(privateContainerId).then(function() {
+			_log("Removed last private tab => remove container");
+			privateContainerId = null;
+		});
+	}, tabId);
+});
+
 var privateContainerId;
-browser.storage.local.get("cookieStoreId").then(function(o) {
-	function done(sId) {
-		if(!sId)
-			_err("Unable to create container");
-	}
-	var sId = o.cookieStoreId || null;
-	if(!sId) {
-		createAndStoreContainer(done);
-		return;
-	}
-	// Validate container
-	browser.contextualIdentities.get(sId).then(function onSuccess(context) {
-		if(context) {
-			privateContainerId = sId;
-			_log("Will use saved cookieStoreId from browser.storage.local: " + sId);
-			done(sId);
-			return;
-		}
-		_log("Saved cookieStoreId was removes, will create new one");
-		createAndStoreContainer(done);
+function getContainer(callback) {
+	if(privateContainerId)
+		validateContainer(privateContainerId, callback);
+	else
+		createAndStoreContainer(callback);
+}
+function validateContainer(sId, callback) {
+	browser.contextualIdentities.get(sId).then(function(context) {
+		if(context)
+			return callback(sId);
+		_log("Container was removed, will create new one");
+		return createAndStoreContainer(callback);
 	}, _err);
-}, _err);
+}
 function createAndStoreContainer(callback) {
 	createContainer(function(sId) {
-		privateContainerId = sId;
-		browser.storage.local.set({
-			cookieStoreId: sId
-		});
-		return callback(sId);
+		if(sId)
+			privateContainerId = sId;
+		callback(sId);
 	});
 }
 function createContainer(callback) {
