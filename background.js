@@ -27,7 +27,7 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 	if(miId == "openInTab") {
 		var opts = {
 			url: info.linkUrl,
-			cookieStoreId: cookieStoreId,
+			cookieStoreId: privateContainerId,
 			openerTabId: tab.id,
 			//~ todo: add options
 			active: true,
@@ -52,7 +52,7 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 browser.browserAction.onClicked.addListener(function() {
 	_log("browserAction.onClicked");
 	browser.tabs.create({
-		cookieStoreId: cookieStoreId,
+		cookieStoreId: privateContainerId,
 		active: true
 	});
 });
@@ -77,7 +77,7 @@ function isTabPrivate(tabId, callback) {
 	promise.then(function(tabsInfo) {
 		var tabInfo = Array.isArray(tabsInfo) ? tabsInfo[0] : tabsInfo;
 		_log("tabInfo.cookieStoreId " + tabInfo.cookieStoreId);
-		var isPrivate = tabInfo.cookieStoreId == cookieStoreId;
+		var isPrivate = tabInfo.cookieStoreId == privateContainerId;
 		callback(isPrivate);
 	}, _err);
 }
@@ -90,7 +90,7 @@ setTimeout(function() {
 	});
 }, 100);
 
-var cookieStoreId;
+var privateContainerId;
 browser.storage.local.get("cookieStoreId").then(function(o) {
 	function done(sId) {
 		if(!sId)
@@ -104,7 +104,7 @@ browser.storage.local.get("cookieStoreId").then(function(o) {
 	// Validate container
 	browser.contextualIdentities.get(sId).then(function onSuccess(context) {
 		if(context) {
-			cookieStoreId = sId;
+			privateContainerId = sId;
 			_log("Will use saved cookieStoreId from browser.storage.local: " + sId);
 			done(sId);
 			return;
@@ -117,7 +117,7 @@ function createAndStoreContainer(callback) {
 	createContainer(function(sId) {
 		if(!sId)
 			return callback();
-		cookieStoreId = sId;
+		privateContainerId = sId;
 		browser.storage.local.set({
 			cookieStoreId: sId
 		});
