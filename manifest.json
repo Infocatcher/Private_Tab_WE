@@ -18,6 +18,7 @@
 		"contextualIdentities",
 		"cookies",
 		"contextMenus",
+		"tabs",
 		"storage",
 		"notifications"
 	],

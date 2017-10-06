@@ -62,7 +62,28 @@ function openInPrivateTab(uri, sourceTab) {
 	});
 }
 function toggleTabPrivate(tab) {
-	//~ todo
+	//~ todo: something better?
+	_log("toggleTabPrivate(): " + tab.url);
+	var isPrivate = tab.cookieStoreId == privateContainerId;
+	var opts = {
+		url: tab.url,
+		index: tab.index + 1,
+		active: tab.active,
+		pinned: tab.pinned
+	};
+	function openTab() {
+		browser.tabs.create(opts).then(function() {
+			browser.tabs.remove(tab.id);
+		});
+	}
+	if(isPrivate)
+		openTab();
+	else {
+		getContainer(function(sId) {
+			opts.cookieStoreId = sId;
+			openTab();
+		});
+	}
 }
 
 browser.browserAction.onClicked.addListener(function() {
