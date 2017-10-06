@@ -20,8 +20,8 @@
 		"message": "Новая приватная вкладка",
 		"description": "Tooltip for toolbar button"
 	},
-	"privateTab": {
-		"message": "Приватная вкладка",
-		"description": "Item in tab context menu"
+	"toggleTabPrivate": {
+		"message": "Переключить приватность вкладки",
+		"description": "Item in tab context menu to toggle private state"
 	}
 }

@@ -26,9 +26,7 @@ browser.contextMenus.create({
 });
 browser.contextMenus.create({
 	id: "toggleTabPrivate",
-	type: "checkbox",
-	checked: false,
-	title: browser.i18n.getMessage("privateTab"),
+	title: browser.i18n.getMessage("toggleTabPrivate"),
 	contexts: ["tab"]
 });
 
@@ -99,29 +97,6 @@ browser.commands.onCommand.addListener(function(command) {
 	_log("commands.onCommand: " + command);
 });
 
-browser.tabs.onActivated.addListener(function(activeInfo) {
-	_log("tabs.onActivated tabId: " + activeInfo.tabId);
-	isTabPrivate(activeInfo.tabId, function(isPrivate) {
-		_log("isPrivate: " + isPrivate);
-		browser.contextMenus.update("toggleTabPrivate", {
-			checked: isPrivate
-		});
-	});
-});
-function isTabPrivate(tabId, callback) {
-	if(!privateContainerId)
-		return callback(false);
-	var promise = tabId === null
-		//? browser.tabs.getCurrent()
-		? browser.tabs.query({ currentWindow: true, active: true })
-		: browser.tabs.get(tabId);
-	promise.then(function(tabsInfo) {
-		var tabInfo = Array.isArray(tabsInfo) ? tabsInfo[0] : tabsInfo;
-		_log("tabInfo.cookieStoreId " + tabInfo.cookieStoreId);
-		var isPrivate = tabInfo.cookieStoreId == privateContainerId;
-		callback(isPrivate);
-	}, _err);
-}
 function getPrivateTabsCount(callback, excludeTabId) {
 	if(!privateContainerId)
 		return callback(0);
@@ -132,14 +107,6 @@ function getPrivateTabsCount(callback, excludeTabId) {
 		callback(count);
 	}, _err);
 }
-setTimeout(function() {
-	isTabPrivate(null, function(isPrivate) {
-		_log("isPrivate: " + isPrivate);
-		browser.contextMenus.update("toggleTabPrivate", {
-			checked: isPrivate
-		});
-	});
-}, 100);
 
 browser.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 	// Note: browser.tabs.get(tabId) doesn't work: Error: Invalid tab ID: ###

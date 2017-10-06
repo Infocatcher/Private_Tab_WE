@@ -20,8 +20,8 @@
 		"message": "New Private Tab",
 		"description": "Tooltip for toolbar button"
 	},
-	"privateTab": {
-		"message": "Private Tab",
-		"description": "Item in tab context menu"
+	"toggleTabPrivate": {
+		"message": "Toggle Private Tab",
+		"description": "Item in tab context menu to toggle private state"
 	}
 }
