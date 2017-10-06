@@ -35,31 +35,35 @@ browser.contextMenus.create({
 browser.contextMenus.onClicked.addListener(function(info, tab) {
 	var miId = info.menuItemId;
 	_log("contextMenus.onClicked: " + miId);
-	if(miId == "openInTab") {
-		getContainer(function(sId) {
-			var opts = {
-				url: info.linkUrl,
-				cookieStoreId: sId,
-				openerTabId: tab.id,
-				active: !prefs.loadInBackground,
-				index: tab.index + 1
-			};
-			try {
-				browser.tabs.create(opts);
-			}
-			catch(e) {
-				// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
-				if((e + "").indexOf('"openerTabId" is unsupported') == -1)
-					throw e;
-				delete opts.openerTabId;
-				browser.tabs.create(opts);
-			}
-		});
-	}
-	else if(miId == "toggleTabPrivate") {
-		//~ todo
-	}
+	if(miId == "openInTab")
+		openInPrivateTab(info.linkUrl, tab);
+	else if(miId == "toggleTabPrivate")
+		toggleTabPrivate(tab);
 });
+function openInPrivateTab(uri, sourceTab) {
+	getContainer(function(sId) {
+		var opts = {
+			url: uri,
+			cookieStoreId: sId,
+			openerTabId: sourceTab.id,
+			active: !prefs.loadInBackground,
+			index: sourceTab.index + 1
+		};
+		try {
+			browser.tabs.create(opts);
+		}
+		catch(e) {
+			// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
+			if((e + "").indexOf('"openerTabId" is unsupported') == -1)
+				throw e;
+			delete opts.openerTabId;
+			browser.tabs.create(opts);
+		}
+	});
+}
+function toggleTabPrivate(tab) {
+	//~ todo
+}
 
 browser.browserAction.onClicked.addListener(function() {
 	_log("browserAction.onClicked");
