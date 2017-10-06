@@ -70,9 +70,15 @@ function toggleTabPrivate(tab) {
 		pinned: tab.pinned
 	};
 	function openTab() {
-		browser.tabs.create(opts).then(function() {
-			browser.tabs.remove(tab.id);
-		});
+		browser.tabs.create(opts).then(
+			function onCreated() {
+				browser.tabs.remove(tab.id);
+			},
+			function onError(e) {
+				_err(e);
+				notify(e);
+			}
+		);
 	}
 	if(isPrivate)
 		openTab();
@@ -161,13 +167,16 @@ function createContainer(callback) {
 		// Expose enabling containers via web extensions, fixed in Firefox 57+
 		var msg = "Unable to create container! Please set privacy.userContext.enabled = true in about:config";
 		_err(msg);
-		browser.notifications.create({
-			"type": "basic",
-			"iconUrl": browser.extension.getURL("icon.png"),
-			"title": browser.i18n.getMessage("extensionName"),
-			"message": msg
-		});
+		notify(msg);
 	}, _err);
+}
+function notify(msg) {
+	browser.notifications.create({
+		"type": "basic",
+		"iconUrl": browser.extension.getURL("icon.png"),
+		"title": browser.i18n.getMessage("extensionName"),
+		"message": "" + msg // Force stringify to display errors objects
+	});
 }
 
 // Not implemented :(
