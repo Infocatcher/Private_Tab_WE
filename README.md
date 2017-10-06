@@ -48,6 +48,13 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1370499">Bug 1370499</a></td>
 	</tr>
 	<tr>
+		<td>Ability to update menu item right before menu opening (to implement “Private Tab” checkbox in tab context menu)</td>
+		<td>UX</td>
+		<td>No API</td>
+		<td>Minor</td>
+		<td></td>
+	</tr>
+	<tr>
 		<td>Special private:… protocol to open URIs in private tabs</td>
 		<td>Additional functionality</td>
 		<td>No API</td>
