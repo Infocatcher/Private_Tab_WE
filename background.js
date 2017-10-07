@@ -143,12 +143,10 @@ function validateContainer(sId, callback) {
 }
 function createAndStoreContainer(callback) {
 	createContainer(function(sId) {
-		if(sId) {
-			privateContainerId = sId;
-			browser.storage.local.set({
-				privateContainerId: sId
-			});
-		}
+		privateContainerId = sId;
+		browser.storage.local.set({
+			privateContainerId: sId
+		});
 		callback(sId);
 	});
 }
