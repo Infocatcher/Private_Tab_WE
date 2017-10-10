@@ -55,6 +55,13 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 		<td></td>
 	</tr>
 	<tr>
+		<td>Ability to move tab into another container (for “Private Tab” checkbox in tab context menu), to restore not only URL</td>
+		<td>Additional functionality, UX</td>
+		<td>No API</td>
+		<td>Minor</td>
+		<td></td>
+	</tr>
+	<tr>
 		<td>Special private:… protocol to open URIs in private tabs</td>
 		<td>Additional functionality</td>
 		<td>No API</td>
