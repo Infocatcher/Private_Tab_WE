@@ -44,8 +44,7 @@ function openInPrivateTab(uri, sourceTab) {
 			url: uri,
 			cookieStoreId: sId,
 			openerTabId: sourceTab.id,
-			active: !prefs.loadInBackground,
-			index: sourceTab.index + 1
+			active: !prefs.loadInBackground
 		};
 		try {
 			browser.tabs.create(opts);
@@ -55,6 +54,8 @@ function openInPrivateTab(uri, sourceTab) {
 			if((e + "").indexOf('"openerTabId" is unsupported') == -1)
 				throw e;
 			delete opts.openerTabId;
+			opts.index = sourceTab.index + 1;
+			_log("openInPrivateTab(): openerTabId not supported, will use workaround");
 			browser.tabs.create(opts);
 		}
 	});
