@@ -22,6 +22,10 @@
 		"storage",
 		"notifications"
 	],
+	"options_ui": {
+		"page": "options.html",
+		"browser_style": true
+	},
 	"browser_action": {
 		"browser_style": true,
 		"default_title": "__MSG_openNewPrivateTab__",
