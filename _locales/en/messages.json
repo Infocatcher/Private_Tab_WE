@@ -23,5 +23,11 @@
 	"toggleTabPrivate": {
 		"message": "Toggle Private Tab",
 		"description": "Item in tab context menu to toggle private state"
+	},
+	"loadInBackground": {
+		"message": "Open links in background"
+	},
+	"debug": {
+		"message": "Debug mode"
 	}
 }

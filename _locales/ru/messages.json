@@ -23,5 +23,11 @@
 	"toggleTabPrivate": {
 		"message": "Переключить приватность вкладки",
 		"description": "Item in tab context menu to toggle private state"
+	},
+	"loadInBackground": {
+		"message": "Открывать ссылки в фоне"
+	},
+	"debug": {
+		"message": "Отладочный режим"
 	}
 }

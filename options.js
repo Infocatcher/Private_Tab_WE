@@ -2,6 +2,14 @@ var prefs = { // Dafaults
 	debug: true,
 	loadInBackground: false
 };
+function init() {
+	localize();
+	loadOptions();
+}
+function localize() {
+	for(var it of document.getElementsByClassName("localize"))
+		it.textContent = browser.i18n.getMessage(it.textContent) || it.textContent;
+}
 function loadOptions() {
 	browser.storage.local.get().then(function(o) {
 		Object.assign(prefs, o);
@@ -21,5 +29,5 @@ function saveOption(e) {
 		[node.id]: node.checked
 	});
 }
-document.addEventListener("DOMContentLoaded", loadOptions, true);
+document.addEventListener("DOMContentLoaded", init, true);
 document.addEventListener("input", saveOption, false);
