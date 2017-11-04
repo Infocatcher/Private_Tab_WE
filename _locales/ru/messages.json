@@ -25,9 +25,11 @@
 		"description": "Item in tab context menu to toggle private state"
 	},
 	"loadInBackground": {
-		"message": "Открывать ссылки в фоне"
+		"message": "Открывать ссылки в фоне",
+		"description": "Checkbox in options"
 	},
 	"debug": {
-		"message": "Отладочный режим"
+		"message": "Отладочный режим",
+		"description": "Checkbox in options"
 	}
 }

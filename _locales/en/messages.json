@@ -25,9 +25,11 @@
 		"description": "Item in tab context menu to toggle private state"
 	},
 	"loadInBackground": {
-		"message": "Open links in background"
+		"message": "Open links in background",
+		"description": "Checkbox in options"
 	},
 	"debug": {
-		"message": "Debug mode"
+		"message": "Debug mode",
+		"description": "Checkbox in options"
 	}
 }
