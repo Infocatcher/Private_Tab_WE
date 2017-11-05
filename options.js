@@ -5,6 +5,11 @@ var prefs = { // Dafaults
 function init() {
 	localize();
 	loadOptions();
+	addEventListener("input", saveOption);
+	addEventListener("unload", destroy, { once: true });
+}
+function destroy() {
+	removeEventListener("input", saveOption);
 }
 function localize() {
 	for(var it of document.getElementsByClassName("localize"))
@@ -29,5 +34,4 @@ function saveOption(e) {
 		[node.id]: node.checked
 	});
 }
-document.addEventListener("DOMContentLoaded", init, true);
-document.addEventListener("input", saveOption, false);
+addEventListener("DOMContentLoaded", init, { once: true });
