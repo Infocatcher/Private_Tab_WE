@@ -36,7 +36,7 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 	<tr>
 		<td><del>Browser behavior for “open link in new tab” (<em>browser.tabs.insertRelatedAfterCurrent</em> & Co)</del></td>
 		<td><del>UX</del></td>
-		<td><del>No API</del><br><em>In Firefox 57+ supported browser.tabs.create({ openerTabId: … })</td>
+		<td><del>No API</del><br><em><a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/create">browser.tabs.create({ openerTabId: … })</a> in Firefox 57+</td>
 		<td><del>Major</del></td>
 		<td></td>
 	</tr>
@@ -50,7 +50,7 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 	<tr>
 		<td><del>Ability to update menu item right before menu opening (to implement “Private Tab” checkbox in tab context menu)</del></td>
 		<td><del>UX</del></td>
-		<td><del>No API</del> <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/menus/onShown">Implemented</a> in Firefox 60+</td>
+		<td><del>No API</del><br><em><a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/menus/onShown">browser.menus.onShown</a> in Firefox 60+</em></td>
 		<td><del>Minor</del></td>
 		<td></td>
 	</tr>
@@ -85,7 +85,7 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 	<tr>
 		<td>Configurable <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands">keyboard shortcuts</a> (note: also not possible to assign Ctrl+Alt+<em>X</em>)</td>
 		<td>UX</td>
-		<td><del>No API</del> browser.commands.update() in Firefox 60+</td>
+		<td><del>No API</del><br><em><a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/commands/update">browser.commands.update()</a> in Firefox 60+</em></td>
 		<td>Minor</td>
 		<td><del><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1421811">Bug 1421811</a></del>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1303384">bug 1303384</a></td>
 	</tr>
