@@ -29,29 +29,29 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 	<tr>
 		<td><del>Ability to programmatically enable containers</del></td>
 		<td><del>Core functionality</del></td>
-		<td><del>No API</del><br><em>Fixed in Firefox 57</em></td>
+		<td><del>No API</del><br><em>Fixed in Firefox 57+</em></td>
 		<td><del>Major</del></td>
 		<td><del><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1354602">Bug 1354602</a></del></td>
 	</tr>
 	<tr>
 		<td><del>Browser behavior for “open link in new tab” (<em>browser.tabs.insertRelatedAfterCurrent</em> & Co)</del></td>
 		<td><del>UX</del></td>
-		<td><del>No API</del><br><em>In Firefox 57 supported browser.tabs.create({ openerTabId: … })</td>
+		<td><del>No API</del><br><em>In Firefox 57+ supported browser.tabs.create({ openerTabId: … })</td>
 		<td><del>Major</del></td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>Items in bookmark/history context menu</td>
-		<td>Additional functionality</td>
-		<td>No API</td>
-		<td>Minor</td>
-		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1370499">Bug 1370499</a></td>
+		<td><del>Items in bookmark/history context menu</del></td>
+		<td><del>Additional functionality</del></td>
+		<td><del>No API</del> Implemented in Firefox 59+</td>
+		<td><del>Minor</del></td>
+		<td><del><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1370499">Bug 1370499</a></del></td>
 	</tr>
 	<tr>
-		<td>Ability to update menu item right before menu opening (to implement “Private Tab” checkbox in tab context menu)</td>
-		<td>UX</td>
-		<td>No API</td>
-		<td>Minor</td>
+		<td><del>Ability to update menu item right before menu opening (to implement “Private Tab” checkbox in tab context menu)</del></td>
+		<td><del>UX</del></td>
+		<td><del>No API</del> <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/menus/onShown">Implemented</a> in Firefox 60+</td>
+		<td><del>Minor</del></td>
 		<td></td>
 	</tr>
 	<tr>
@@ -66,7 +66,7 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 		<td>Additional functionality</td>
 		<td>No API</td>
 		<td>Minor</td>
-		<td><a href="https://bug623317.bugzilla.mozilla.org/show_bug.cgi?id=1271553">Bug 1271553</a></td>
+		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1271553">Bug 1271553</a></td>
 	</tr>
 	<tr>
 		<td>Cleanup on disabling/uninstalling: <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onSuspend">browser.runtime.onSuspend()</a>, <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/runtime/onSuspendCanceled">browser.runtime.onSuspendCanceled()</a></td>
@@ -85,9 +85,9 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Private_Tab">Priva
 	<tr>
 		<td>Configurable <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands">keyboard shortcuts</a> (note: also not possible to assign Ctrl+Alt+<em>X</em>)</td>
 		<td>UX</td>
-		<td>No API</td>
+		<td><del>No API</del> browser.commands.update() in Firefox 60+</td>
 		<td>Minor</td>
-		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1303384">Bug 1303384</a></td>
+		<td><del><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1421811">Bug 1421811</a></del>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1303384">bug 1303384</a></td>
 	</tr>
 </tbody>
 </table>
